@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#welcomeModal").modal('show');
+		});
+	</script>
+	<title>Chat with Pancea AI</title>
+	<style>
+		body {
+			background-color: #FAFEFF;
+			height: 100vh;
+			display: flex;
+			flex-direction: column;
+			width: 100vw;
+		}
+
+		header {
+			background-color: #FAFEFF;
+			color: #0c8084;
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			align-content: center;
+		}
+
+		h1 {
+			margin: 0;
+			text-align: center;
+		}
+
+		.chat-body {
+			display: flex;
+			height: 100%;
+			width: 100%;
+			flex-direction: column;
+			/* align-self: center; */
+			align-items: center;
+			/* justify-content: center; */
+			/* background-color: #4CAF50; */
+		}
+
+		/* Style the chat container */
+		.chat-container {
+			border: 1px solid #CAE5EC;
+			border-radius: 10px;
+			box-shadow: 0 0 5px #8A959D;
+			padding: 10px;
+			margin: 10px;
+			height: 90%;
+			max-height: 600px;
+			width: 90%;
+			max-width: 550px;
+			display: flex;
+			flex-direction: column;
+			overflow-y: scroll;
+			background-color: white;
+		}
+
+		/* Start of message header */
+		.chat-header {
+			width: 100%;
+			text-align: center;
+			/* background-color: yellow; */
+			/* padding: 20px; */
+			font-size: 16px;
+			font-weight: bold;
+			color: lightslategray;
+		}
+
+		/* Style the chat message */
+		.chat-message {
+			background-color: #f1f1f1;
+			border-radius: 5px;
+			padding: 10px;
+			margin-bottom: 10px;
+		}
+
+		/* Style the user message */
+		.user-message {
+			background-color: #E1F1FB;
+			border-radius: 5px;
+			padding: 10px;
+			margin-bottom: 10px;
+			width: auto;
+			align-self: flex-end;
+			color: #2B2E32;
+		}
+
+		/* Style the user name */
+		.user-name {
+			font-weight: bold;
+		}
+
+		form {
+			width: 95%;
+			max-width: 550px;
+			align-items: center;
+			display: flex;
+			flex-direction: row;
+		}
+
+		/* Style the chat input */
+		.chat-input {
+			width: 100%;
+			padding: 10px;
+			margin-right: 10px;
+			/* border: 1px solid #ccc;
+			border-radius: 5px; */
+			margin-top: 10px;
+			box-sizing: border-box;
+			border: 1px solid #CAE5EC;
+			border-radius: 10px;
+			/* box-shadow: 0 0 5px #8A959D; */
+		}
+
+		/* Style the chat submit button */
+		.chat-submit {
+			background-color: #4E9C44;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			cursor: pointer;
+			margin-top: 10px;
+			width: 200px;
+			box-shadow: 0 0 5px #8A959D;
+		}
+
+		.chat-finish {
+			background-color: white;
+			color: #2B2E32;
+			border: 1px solid #4E9C44;
+			border-radius: 5px;
+			padding: 10px;
+			cursor: pointer;
+			margin-top: 30px;
+			width: 250px;
+			box-shadow: 0 0 5px #8A959D;
+			font-size: 20px;
+		}
+
+		/* Style the chatbot message */
+		.chatbot-message {
+			background-color: #DCEBDA;
+			border-radius: 5px;
+			padding: 10px;
+			margin-bottom: 10px;
+			max-width: 85%;
+			/* display: inline-flex; */
+			align-self: flex-start;
+			color: #2B2E32
+		}
+
+		/* Style the chatbot name */
+		.chatbot-name {
+			font-weight: bold;
+		}
+
+		.video-title {
+			font-weight: bold;
+			/* width: auto;
+			display: inline-block */
+		}
+
+		.video-player {
+			width: 350px;
+
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Welcome Modal HTML -->
+	<div id="welcomeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Welcome to PanceaAI Beta Test</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>Thanks for helping us test and train PanceaAI. PanceaAI is meant to be an AI health coach. Feel free to ask it any questions related to your health and wellness.
+						<br>
+						<br>
+						If you have pain, please talk to PanceaAI about it. At some point it should give you a few exercises from our database for you to try out. 
+						<br>
+						<br>
+						Our only ask, once you are done playing around with it, click <b>"Submit my chat thread"</b>. This will send us a copy of your conversation so that we
+						can review its answers and use them to further train the model.
+						<br>
+						<br>
+						Thanks for your help!!!
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Finish Modal HTML -->
+	<div id="finishModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Thanks for testing!</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<p>We really appreciate you taking the time to test!! If you have any additional feedback please email me at lenny@pancea.ai or text at (303)916-2250
+						<br>
+						<br>
+						Thanks!!!!!
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<header>
+		<h1>
+			Pancea AI Chat Beta
+		</h1>
+	</header>
+
+	<div class="chat-body">
+		<div class="chat-container">
+			<!-- <div class="chatbot-message">
+			<span class="chatbot-name">PanceaAI:</span> Hi! Im Pancea, your AI health coach. How can I help you today?
+		</div> -->
+			<div class="chat-header">New Thread</div>
+		</div>
+		<form>
+			<input type="text" class="chat-input" placeholder="Type your message here...">
+			<button type="submit" class="chat-submit">Send</button>
+		</form>
+		<button id="chat-finish" class="chat-finish" data-toggle="modal" data-target="#finishModal">Submit my chat thread</button>
+	</div>
+	<script>
+		// Get the chat input and chat container elements
+		var chatInput = document.querySelector('.chat-input');
+		var chatContainer = document.querySelector('.chat-container');
+		var messageThread = [];
+
+		// Add event listener for the form submit event
+		document.querySelector('form').addEventListener('submit', async function (event) {
+			event.preventDefault(); // prevent the default form submission behavior
+
+			// Get the user message from the chat input
+			var userMessage = chatInput.value;
+
+			// Create a new user message element and add it to the chat container
+			var userMessageElement = document.createElement('div');
+			userMessageElement.classList.add('user-message');
+			userMessageElement.innerHTML = '<span class="user-name">User: </span>' + userMessage;
+			chatContainer.appendChild(userMessageElement);
+			// Scroll to the bottom of the chat container
+			chatContainer.scrollTop = chatContainer.scrollHeight;
+
+			// Send the user message to the chatbot and get the response
+			var response = await getChatbotResponse(userMessage);
+			// Create a new chatbot message element and add it to the chat container
+			var chatbotMessageElement = document.createElement('div');
+			chatbotMessageElement.classList.add('chatbot-message');
+			chatbotMessageElement.innerHTML = '<span class="chatbot-name">PanceaAI: </span>' + response.panceaAI_response;
+			chatContainer.appendChild(chatbotMessageElement);
+
+			if (response.exercises.length > 0) {
+				response.exercises.forEach((exercise, index) => {
+					setTimeout(function () {
+						var exerciseNum = index + 1
+						var videoElement = document.createElement('div');
+						videoElement.classList.add('chatbot-message');
+
+						var titleElement = document.createElement('b');
+						titleElement.classList.add('video-title');
+						titleElement.textContent = exerciseNum + ') ' + exercise.title;
+
+						var videoPlayer = document.createElement('video');
+						videoPlayer.classList.add('video-player');
+						videoPlayer.src = exercise.media;
+						videoPlayer.controls = true;
+
+						videoElement.appendChild(titleElement);
+						videoElement.appendChild(document.createElement('br'));
+						videoElement.appendChild(document.createElement('br'));
+						videoElement.appendChild(videoPlayer);
+
+						chatContainer.appendChild(videoElement);
+
+					}, 1000)
+				})
+			}
+
+			messageThread = response.message_thread;
+
+			// Clear the chat input
+			chatInput.value = '';
+
+			// Scroll to the bottom of the chat container
+			chatContainer.scrollTop = chatContainer.scrollHeight;
+		});
+
+
+		// Define the function to get a response from the chatbot
+		async function getChatbotResponse(userMessage) {
+			// Make a fetch call to the Flask endpoint to get the chatbot's response
+			var response = await fetch('/get_response', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					'user_message': userMessage,
+					'message_thread': messageThread
+				})
+			});
+
+			// Get the chatbot's response from the fetch call
+			var chatbotResponse = await response.json();
+
+			console.log("Response from API Call: ", chatbotResponse)
+			// Return the chatbot's response
+			return chatbotResponse;
+		}
+
+		//Listen for submission of chat
+		const button = document.getElementById('chat-finish');
+		// const finishModal = document.getElementById('finishModal');
+		button.addEventListener('click', async function () {
+			// Send the chat thread
+			var response = await submitChatThread();
+			// finishModal.show();
+		})
+
+		async function submitChatThread() {
+			//make a fetch call to the flask endpoint to send the email
+			var response = await fetch('/submit_chat_thread', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					'message_thread': messageThread
+				})
+			});
+		}
+
+		// Get a reference to the modal element
+		const modal = new bootstrap.Modal(document.getElementById('myModal'));
+
+
+	</script>
+</body>
+
+</html>
