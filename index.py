@@ -121,6 +121,7 @@ app = Flask(__name__)
 # conn.close()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+print(os.environ.get("OPENAI_API_KEY"))
 
 start_sequence = "\nPanceaAI: "
 restart_sequence = "\nUser: "
